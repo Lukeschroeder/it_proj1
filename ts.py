@@ -25,6 +25,7 @@ def main():
     populateDNStable()
     server = Server(tsListenPort)
     server.accept()
+    sever.close()
 
     
    

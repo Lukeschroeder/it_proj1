@@ -32,9 +32,8 @@ def main():
 
     server = Server(rsListenPort)
     server.accept()
+    server.close()
 
-
-    
 
 
         

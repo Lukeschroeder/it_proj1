@@ -31,6 +31,9 @@ class Server:
         self.activesocket, addr = self.socket.accept()
         print ("[S]: Got a connection request from a client at ", addr)
 
+    def close(self):
+        self.socket.close()
+
 
 
 class Client:
@@ -53,6 +56,9 @@ class Client:
          # Connect to the server at the port passed
         server_binding = (hostname, port)
         self.socket.connect(server_binding)
+
+    def close(self):
+        self.socket.close()
 
     
 
