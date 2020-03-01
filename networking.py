@@ -4,10 +4,12 @@ import socket as mysoc
 
 
 class Server:
-    def __init__(self, port):
+    def __init__(self, port, action):
         self.port = port
         self.socket = self.createsocket()
         self.activesocket = None
+        self.action = action
+
 
     # Returns an active server socket 
     def createsocket(self):
@@ -29,17 +31,35 @@ class Server:
 
     def accept(self):
         self.activesocket, addr = self.socket.accept()
-        print ("[S]: Got a connection request from a client at ", addr)
+        if self.action == 'rs':
+            self.rs()
+        elif self.action == 'ts':
+            self.ts()
+
+
+    def rs():
+        print ("[S]: Client accepted calling RS", addr)
+        while(True):
+            # Receive message from client
+            data = self.activesocket.recv(datalength)
+            if len(data) == 0: break
+            print data
+
+            # Send converted message to client
+            # active_socket.send(converted_data.encode('utf-8'))      
+
+    def ts():
+        print ("[S]: Client accepted calling TS", addr)
 
         while(True):
             # Receive message from client
-            data = active_socket.recv(datalength)
+            data = self.activesocket.recv(datalength)
             if len(data) == 0: break
-
             print data
 
             # Send converted message to client
             # active_socket.send(converted_data.encode('utf-8'))
+
 
 
     def close(self):
