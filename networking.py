@@ -31,6 +31,17 @@ class Server:
         self.activesocket, addr = self.socket.accept()
         print ("[S]: Got a connection request from a client at ", addr)
 
+        while(True):
+            # Receive message from client
+            data = active_socket.recv(datalength)
+            if len(data) == 0: break
+
+            print data
+
+            # Send converted message to client
+            # active_socket.send(converted_data.encode('utf-8'))
+
+
     def close(self):
         self.socket.close()
 
