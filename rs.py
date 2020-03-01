@@ -30,7 +30,7 @@ def main():
     print 'TS Hostname:', TS_hostname
     print 'RS Listen Port:', rsListenPort
 
-    server = Server(rsListenPort)
+    server = Server(rsListenPort, 'rs')
     server.accept()
     server.close()
 

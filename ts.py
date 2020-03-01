@@ -23,7 +23,7 @@ def main():
     print 'TS Listen Port:', tsListenPort
 
     populateDNStable()
-    server = Server(tsListenPort)
+    server = Server(tsListenPort, 'ts')
     server.accept()
     sever.close()
 
