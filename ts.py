@@ -2,7 +2,7 @@ import sys
 from networking import Server
 infilename = 'PROJI-DNSTS.txt'
 DNStable = {}
-
+datalength = 200
 
 
 # Fills in DNS table with entries from file 
@@ -15,17 +15,32 @@ def populateDNStable():
 
 
 
+def queryDNStable(server):
+    while(True):
+        # Receive message from client
+        hostname = server.activesocket.recv(datalength)
+        if len(hostname) == 0: break
+        if DNStable.has_key(hostname):
+            DNSentry = DNStable[hostname]
+            response = DNSentry[0] + ' ' + DNSentry[1] + ' ' + DNSentry[2]
+            server.activesocket.send(response.encode('utf-8'))
+        else:
+            response = hostname + ' - Error:HOST NOT FOUND'
+            server.activesocket.send(response.encode('utf-8'))
+
+
+
 def main():
     args = sys.argv
     if len(args) != 2: print 'Insufficient Arguments'
 
     tsListenPort = int(args[1])
-    print 'TS Listen Port:', tsListenPort
 
     populateDNStable()
-    server = Server(tsListenPort, 'ts')
+    server = Server(tsListenPort)
     server.accept()
-    sever.close()
+    queryDNStable(server)
+    server.close()
 
     
    

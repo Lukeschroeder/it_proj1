@@ -4,65 +4,34 @@ import socket as mysoc
 
 
 class Server:
-    def __init__(self, port, action):
+    def __init__(self, port):
         self.port = port
         self.socket = self.createsocket()
         self.activesocket = None
-        self.action = action
-
 
     # Returns an active server socket 
     def createsocket(self):
         try:
             serversocket = mysoc.socket(mysoc.AF_INET, mysoc.SOCK_STREAM)
-            print "[S]: Server socket created"
+            print '[S]: Server socket created'
         except mysoc.error as err:
             print '{} \n'.format("socket open error ",err)
         port = self.port
-        print('PORT: ', port)
         host = mysoc.gethostname()
         server_binding=(host,port)
         serversocket.bind(server_binding)
         serversocket.listen(1)
-        print("[S]: Server host name is: ",host)
         localhost_ip=(mysoc.gethostbyname(host))
-        print("[S]: Server IP address is  ",localhost_ip)
+        print '[S]: Server socket listening'
         return serversocket
 
     def accept(self):
-        self.activesocket, addr = self.socket.accept()
-        if self.action == 'rs':
-            self.rs()
-        elif self.action == 'ts':
-            self.ts()
-
-
-    def rs():
-        print ("[S]: Client accepted calling RS", addr)
-        while(True):
-            # Receive message from client
-            data = self.activesocket.recv(datalength)
-            if len(data) == 0: break
-            print data
-
-            # Send converted message to client
-            # active_socket.send(converted_data.encode('utf-8'))      
-
-    def ts():
-        print ("[S]: Client accepted calling TS", addr)
-
-        while(True):
-            # Receive message from client
-            data = self.activesocket.recv(datalength)
-            if len(data) == 0: break
-            print data
-
-            # Send converted message to client
-            # active_socket.send(converted_data.encode('utf-8'))
-
+        self.activesocket, addr = self.socket.accept()   
+        print '[S]: Accepting connection: ', addr[0] 
 
 
     def close(self):
+        print '[S]: Closing connection'
         self.socket.close()
 
 
@@ -76,7 +45,7 @@ class Client:
         # Open client socket
         try:
             clientsocket = mysoc.socket(mysoc.AF_INET, mysoc.SOCK_STREAM)
-            print "[C]: Client socket created" 
+            print '[C]: Client socket created'
         except mysoc.error as err:
             print '{} \n'.format("socket open error ",err)
 
@@ -89,31 +58,7 @@ class Client:
         self.socket.connect(server_binding)
 
     def close(self):
+        print '[C]: Closing connection'
         self.socket.close()
 
     
-
-
-'''
-# Continues until client closes socket
-while(True):
-
-    # Receive message from client
-    data = active_socket.recv(datalength)
-    if len(data) == 0: break
-
-    # Convert message to ascii
-    converted_data = ''
-    for c in data:
-        converted_data += str(c)
-        converted_data += '_'
-    converted_data = converted_data[:-1]
-
-    # Send converted message to client
-    active_socket.send(converted_data.encode('utf-8'))
-
-
-# Close the server socket
-server_socket.close()
-
-exit()'''

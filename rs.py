@@ -3,6 +3,7 @@ infilename = 'PROJI-DNSRS.txt'
 DNStable = {}
 TS_hostname = None
 from networking import Server
+datalength = 200
 
 
 # Fills in DNS table with entries from file 
@@ -19,6 +20,24 @@ def populateDNStable():
 
 
 
+
+def queryDNStable(server):
+    while(True):
+        # Receive message from client
+        hostname = server.activesocket.recv(datalength)
+        if len(hostname) == 0: break
+        if DNStable.has_key(hostname):
+            DNSentry = DNStable[hostname]
+            response = DNSentry[0] + ' ' + DNSentry[1] + ' ' + DNSentry[2]
+            server.activesocket.send(response.encode('utf-8'))
+        else:
+            response = TS_hostname + ' - NS'
+            server.activesocket.send(response.encode('utf-8'))
+
+
+
+
+
 def main():
     # print command line arguments
     args = sys.argv
@@ -27,16 +46,12 @@ def main():
     rsListenPort = int(args[1])
     populateDNStable()
 
-    print 'TS Hostname:', TS_hostname
-    print 'RS Listen Port:', rsListenPort
-
-    server = Server(rsListenPort, 'rs')
+    server = Server(rsListenPort)
     server.accept()
+    queryDNStable(server)
     server.close()
 
 
-
-        
 
 if __name__ == "__main__":
     main()
