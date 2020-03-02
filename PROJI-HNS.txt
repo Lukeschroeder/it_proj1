@@ -2,5 +2,8 @@ kill.cs.rutgers.edu
 mx.rutgers.com
 www.ibm.edu
 google.com
-www.google.com
+www.google.edu
 MX.RUTGERS.EDU
+grep.cs.princeton.EDU
+QTSDATACENTER.aws.EDU
+bullshit

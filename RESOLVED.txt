@@ -2,5 +2,8 @@ kill.cs.rutgers.edu 182.48.3.2 A
 mx.rutgers.com 192.64.4.5 A
 www.ibm.edu - Error:HOST NOT FOUND
 google.com - Error:HOST NOT FOUND
-www.google.com 8.6.4.2 A
+www.gOOgle.edu 8.7.45.2 A
 mx.rutgers.edu 192.64.4.2 A
+grep.cs.princeton.edu 182.49.3.2 A
+qtsdatacenter.aws.edu 128.60.3.2 A
+bullshit - Error:HOST NOT FOUND

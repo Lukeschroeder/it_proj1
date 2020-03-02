@@ -1,7 +1,7 @@
 import sys
 from networking import Client
 infilename = 'PROJI-HNS.txt'
-outfilename = 'RESOLVEDDUP.txt'
+outfilename = 'RESOLVED.txt'
 datalength = 200
 rsListenPort = None
 tsListenPort = None
